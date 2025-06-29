@@ -150,9 +150,13 @@ export const GameComponent: React.FC<GameComponentProps> = ({
           transform: 'translate(-50%, -50%)',
           color: 'white',
           fontFamily: 'monospace',
-          fontSize: '18px'
+          fontSize: '18px',
+          textAlign: 'center'
         }}>
-          Initializing Game...
+          <div>Initializing Game...</div>
+          <div style={{ fontSize: '14px', marginTop: '10px', color: '#ffff00' }}>
+            Click anywhere to enable audio
+          </div>
         </div>
       )}
     </div>

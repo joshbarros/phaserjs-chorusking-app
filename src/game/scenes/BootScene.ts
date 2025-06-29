@@ -45,7 +45,12 @@ export class BootScene extends Phaser.Scene {
 
   create() {
     // Initialize game managers here if needed
-    this.scene.start('MenuScene');
+    
+    // Start demo scene in background first
+    this.scene.start('DemoScene');
+    
+    // Then start menu scene on top
+    this.scene.launch('MenuScene');
   }
 
   private generateTextures() {

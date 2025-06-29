@@ -70,6 +70,12 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   private shoot() {
+    // Play shoot sound
+    const audioManager = (this.scene as any).audioManager;
+    if (audioManager) {
+      audioManager.playSFX('shoot', 0.6);
+    }
+    
     // Create projectile
     const projectile = this.projectiles.create(this.x, this.y - 10, 'projectile');
     if (projectile) {
@@ -112,6 +118,12 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   takeDamage() {
+    // Play explosion sound
+    const audioManager = (this.scene as any).audioManager;
+    if (audioManager) {
+      audioManager.playSFX('explosion', 0.8);
+    }
+    
     // Create explosion effect
     const emitter = this.scene.add.particles(this.x, this.y, 'particle', {
       speed: { min: 100, max: 200 },

@@ -14,29 +14,10 @@ function App() {
   }, [])
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Chorus King</h1>
-        <p>A Sound Shapes Clone</p>
-        {isGameLoaded && (
-          <div className="game-status">
-            <span>Game Ready</span>
-          </div>
-        )}
-      </header>
-      
-      <main className="app-main">
-        <GameComponent 
-          onGameReady={handleGameReady}
-          className="game-wrapper"
-        />
-      </main>
-      
-      <footer className="app-footer">
-        <p>Controls: WASD/Arrow Keys to move, Space to jump</p>
-        <p>Gamepad support enabled</p>
-      </footer>
-    </div>
+    <GameComponent 
+      onGameReady={handleGameReady}
+      className="fullscreen-game"
+    />
   )
 }
 

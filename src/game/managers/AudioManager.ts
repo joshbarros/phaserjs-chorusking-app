@@ -25,8 +25,24 @@ export class AudioManager {
   }
 
   private setupHowler() {
-    // Set global volume
-    Howler.volume(this.masterVolume);
+    // Set global volume higher
+    Howler.volume(1.0);
+    
+    // Unlock audio on first user interaction
+    const unlockAudio = () => {
+      if (Howler.ctx && Howler.ctx.state === 'suspended') {
+        Howler.ctx.resume();
+      }
+      // Remove listeners after first unlock
+      document.removeEventListener('touchstart', unlockAudio);
+      document.removeEventListener('click', unlockAudio);
+      document.removeEventListener('keydown', unlockAudio);
+      console.log('Audio unlocked!');
+    };
+    
+    document.addEventListener('touchstart', unlockAudio);
+    document.addEventListener('click', unlockAudio);
+    document.addEventListener('keydown', unlockAudio);
     
     // Handle page visibility for audio context
     document.addEventListener('visibilitychange', () => {
@@ -45,70 +61,83 @@ export class AudioManager {
   }
 
   private createPlaceholderSounds() {
-    // For now, we'll create simple beep sounds using Web Audio API
-    // In a real implementation, you'd load actual audio files
+    // Create more impactful sound effects with higher volumes
     
-    // Jump sound
+    // Jump sound - punchy with pitch bend
     const jumpSound = new Howl({
-      src: [this.generateToneDataURL(440, 0.1)], // A4 note, 0.1 second
-      volume: 0.3
+      src: [this.generateJumpSoundDataURL()],
+      volume: 0.8
     });
     this.sfxPool.set('jump', jumpSound);
 
-    // Note collection sound
+    // Note collection sound - bright and musical
     const noteSound = new Howl({
-      src: [this.generateToneDataURL(880, 0.2)], // A5 note, 0.2 seconds
-      volume: 0.5
+      src: [this.generateNoteSoundDataURL()],
+      volume: 0.9
     });
     this.sfxPool.set('note', noteSound);
 
-    // Death sound
+    // Death sound - dramatic descending tone
     const deathSound = new Howl({
-      src: [this.generateToneDataURL(220, 0.5)], // A3 note, 0.5 seconds
-      volume: 0.4
+      src: [this.generateDeathSoundDataURL()],
+      volume: 0.7
     });
     this.sfxPool.set('death', deathSound);
+
+    // Explosion sound for enemies
+    const explosionSound = new Howl({
+      src: [this.generateExplosionSoundDataURL()],
+      volume: 0.8
+    });
+    this.sfxPool.set('explosion', explosionSound);
+
+    // Projectile shoot sound
+    const shootSound = new Howl({
+      src: [this.generateShootSoundDataURL()],
+      volume: 0.6
+    });
+    this.sfxPool.set('shoot', shootSound);
   }
 
   private createBackgroundMusic() {
-    // Create multiple music layers for dynamic composition
+    // Create multiple music layers for dynamic composition with higher volumes
     const bassDrumSound = new Howl({
-      src: [this.generateRhythmDataURL(60, 2.0, 'bass')],
+      src: [this.generateRhythmDataURL(120, 4.0, 'bass')], // 120 BPM, louder
       loop: true,
-      volume: 0.4
+      volume: 0.7
     });
 
     const melodySound = new Howl({
       src: [this.generateMelodyDataURL()],
       loop: true,
-      volume: 0.3
+      volume: 0.6
     });
 
     const synthSound = new Howl({
       src: [this.generateSynthDataURL()],
       loop: true,
-      volume: 0.2
+      volume: 0.5
     });
 
-    // Add to music layers
+    // Add to music layers with higher volumes
     this.musicLayers.set('bass', {
       name: 'bass',
       sound: bassDrumSound,
-      volume: 0.4,
+      volume: 0.7,
       active: false
     });
 
     this.musicLayers.set('melody', {
       name: 'melody',
       sound: melodySound,
-      volume: 0.3,
+      volume: 0.6,
       active: false
     });
 
     this.musicLayers.set('synth', {
       name: 'synth',
       sound: synthSound,
-      volume: 0.2,
+      volume: 0.5,
       active: false
     });
   }
@@ -222,8 +251,138 @@ export class AudioManager {
     view.setUint32(40, samples * 2, true);
   }
 
+  // New improved sound generation methods
+  private generateJumpSoundDataURL(): string {
+    const sampleRate = 44100;
+    const duration = 0.15;
+    const samples = sampleRate * duration;
+    const buffer = new ArrayBuffer(44 + samples * 2);
+    const view = new DataView(buffer);
+
+    this.writeWavHeader(view, samples);
+
+    for (let i = 0; i < samples; i++) {
+      const t = i / sampleRate;
+      // Pitch bend from 200Hz to 400Hz
+      const freq = 200 + (t / duration) * 200;
+      const envelope = Math.exp(-t * 8); // Quick decay
+      const sample = Math.sin(2 * Math.PI * freq * t) * envelope * 0.6;
+      
+      const intSample = Math.max(-32768, Math.min(32767, Math.floor(sample * 32767)));
+      view.setInt16(44 + i * 2, intSample, true);
+    }
+
+    const blob = new Blob([view], { type: 'audio/wav' });
+    return URL.createObjectURL(blob);
+  }
+
+  private generateNoteSoundDataURL(): string {
+    const sampleRate = 44100;
+    const duration = 0.3;
+    const samples = sampleRate * duration;
+    const buffer = new ArrayBuffer(44 + samples * 2);
+    const view = new DataView(buffer);
+
+    this.writeWavHeader(view, samples);
+
+    for (let i = 0; i < samples; i++) {
+      const t = i / sampleRate;
+      // Bright harmonic chord
+      const fundamental = 523; // C5
+      const harmony1 = fundamental * 1.25; // E5
+      const harmony2 = fundamental * 1.5;  // G5
+      
+      const envelope = Math.exp(-t * 3);
+      const sample = (
+        Math.sin(2 * Math.PI * fundamental * t) * 0.5 +
+        Math.sin(2 * Math.PI * harmony1 * t) * 0.3 +
+        Math.sin(2 * Math.PI * harmony2 * t) * 0.2
+      ) * envelope * 0.7;
+      
+      const intSample = Math.max(-32768, Math.min(32767, Math.floor(sample * 32767)));
+      view.setInt16(44 + i * 2, intSample, true);
+    }
+
+    const blob = new Blob([view], { type: 'audio/wav' });
+    return URL.createObjectURL(blob);
+  }
+
+  private generateDeathSoundDataURL(): string {
+    const sampleRate = 44100;
+    const duration = 0.8;
+    const samples = sampleRate * duration;
+    const buffer = new ArrayBuffer(44 + samples * 2);
+    const view = new DataView(buffer);
+
+    this.writeWavHeader(view, samples);
+
+    for (let i = 0; i < samples; i++) {
+      const t = i / sampleRate;
+      // Descending tone from 400Hz to 100Hz
+      const freq = 400 - (t / duration) * 300;
+      const envelope = Math.exp(-t * 2);
+      const sample = Math.sin(2 * Math.PI * freq * t) * envelope * 0.5;
+      
+      const intSample = Math.max(-32768, Math.min(32767, Math.floor(sample * 32767)));
+      view.setInt16(44 + i * 2, intSample, true);
+    }
+
+    const blob = new Blob([view], { type: 'audio/wav' });
+    return URL.createObjectURL(blob);
+  }
+
+  private generateExplosionSoundDataURL(): string {
+    const sampleRate = 44100;
+    const duration = 0.4;
+    const samples = sampleRate * duration;
+    const buffer = new ArrayBuffer(44 + samples * 2);
+    const view = new DataView(buffer);
+
+    this.writeWavHeader(view, samples);
+
+    for (let i = 0; i < samples; i++) {
+      const t = i / sampleRate;
+      // Noise-based explosion with filtering
+      const noise = (Math.random() * 2 - 1);
+      const lpf = Math.exp(-t * 10); // Low-pass filter effect
+      const envelope = Math.exp(-t * 6);
+      const sample = noise * lpf * envelope * 0.6;
+      
+      const intSample = Math.max(-32768, Math.min(32767, Math.floor(sample * 32767)));
+      view.setInt16(44 + i * 2, intSample, true);
+    }
+
+    const blob = new Blob([view], { type: 'audio/wav' });
+    return URL.createObjectURL(blob);
+  }
+
+  private generateShootSoundDataURL(): string {
+    const sampleRate = 44100;
+    const duration = 0.1;
+    const samples = sampleRate * duration;
+    const buffer = new ArrayBuffer(44 + samples * 2);
+    const view = new DataView(buffer);
+
+    this.writeWavHeader(view, samples);
+
+    for (let i = 0; i < samples; i++) {
+      const t = i / sampleRate;
+      // Quick laser-like sound
+      const freq = 800 + Math.sin(t * 100) * 200;
+      const envelope = Math.exp(-t * 15);
+      const sample = Math.sin(2 * Math.PI * freq * t) * envelope * 0.4;
+      
+      const intSample = Math.max(-32768, Math.min(32767, Math.floor(sample * 32767)));
+      view.setInt16(44 + i * 2, intSample, true);
+    }
+
+    const blob = new Blob([view], { type: 'audio/wav' });
+    return URL.createObjectURL(blob);
+  }
+
   // Public method to start the background music
   startBackgroundMusic() {
+    console.log('Starting background music...');
     this.playMusicLayer('bass');
     
     // Gradually add layers
@@ -330,6 +489,7 @@ export class AudioManager {
       const playVolume = volume * this.sfxVolume;
       sound.volume(playVolume);
       sound.play();
+      console.log(`Playing SFX: ${name} at volume ${playVolume}`);
     } else {
       console.warn(`SFX '${name}' not found`);
     }

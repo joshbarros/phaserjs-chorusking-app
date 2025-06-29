@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { BootScene } from './scenes/BootScene';
 import { MenuScene } from './scenes/MenuScene';
 import { GameScene } from './scenes/GameScene';
+import { DemoScene } from './scenes/DemoScene';
 import { GAME_CONFIG } from './utils/Constants';
 
 export class ChorusKingGame {
@@ -30,7 +31,7 @@ export class ChorusKingGame {
         width: '100%',
         height: '100%'
       },
-      scene: [BootScene, MenuScene, GameScene],
+      scene: [BootScene, DemoScene, MenuScene, GameScene],
       render: {
         antialias: true,
         pixelArt: false

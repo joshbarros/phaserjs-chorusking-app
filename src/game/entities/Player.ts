@@ -313,7 +313,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     // Play death sound
     const audioManager = (this.scene as any).audioManager;
     if (audioManager) {
-      audioManager.playSFX('death');
+      audioManager.playSFX('death', 0.8);
     }
     
     // Death effect

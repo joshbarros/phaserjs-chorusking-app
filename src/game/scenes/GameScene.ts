@@ -58,17 +58,24 @@ export class GameScene extends Phaser.Scene {
     // Set up UI
     this.setupUI();
     
-    // Set up camera to follow player
+    // Set up camera to follow player with closer zoom
     this.cameras.main.startFollow(this.player);
-    this.cameras.main.setLerp(0.1, 0.1);
+    this.cameras.main.setLerp(0.08, 0.08);
     this.cameras.main.setBounds(0, 0, 3000, 720);
+    this.cameras.main.setZoom(1.5); // Closer camera view
+    
+    // Add camera shake support for impacts
+    this.cameras.main.setDeadzone(100, 60);
     
     // Start background music
     this.audioManager.startBackgroundMusic();
     
     // Escape key to return to menu
     this.input.keyboard?.on('keydown-ESC', () => {
-      this.scene.start('MenuScene');
+      // Start demo scene in background again
+      this.scene.start('DemoScene');
+      // Then launch menu on top
+      this.scene.launch('MenuScene');
     });
   }
 
@@ -261,6 +268,22 @@ export class GameScene extends Phaser.Scene {
       if (this.player.body!.touching.down) {
         this.player.setVelocityY(-600); // Super jump from bouncy platforms
         this.audioManager.playSFX('jump', 0.8);
+        
+        // Strong camera shake for bouncy platform
+        this.cameras.main.shake(80, 0.015);
+        
+        // Create bounce particles
+        const emitter = this.add.particles(this.player.x, this.player.y + 16, 'particle', {
+          speed: { min: 100, max: 200 },
+          scale: { start: 0.5, end: 0 },
+          lifespan: 300,
+          quantity: 12,
+          tint: COLORS.BOUNCY_PLATFORM
+        });
+        
+        this.time.delayedCall(400, () => {
+          emitter.destroy();
+        });
       }
     });
     
@@ -298,8 +321,25 @@ export class GameScene extends Phaser.Scene {
     this.notesCollected++;
     this.score += 100;
     
-    // Play collection sound (placeholder)
-    console.log('Note collected!', this.notesCollected, '/', this.totalNotes);
+    // Play collection sound
+    this.audioManager.playSFX('note', 0.8);
+    
+    // Add camera shake for note collection
+    this.cameras.main.shake(50, 0.01);
+    
+    // Create collection particle burst
+    const emitter = this.add.particles(note.x, note.y, 'particle', {
+      speed: { min: 80, max: 150 },
+      scale: { start: 0.4, end: 0 },
+      lifespan: 400,
+      quantity: 8,
+      tint: [COLORS.NOTE, COLORS.PARTICLE, 0xffffff]
+    });
+    
+    // Cleanup particles
+    this.time.delayedCall(500, () => {
+      emitter.destroy();
+    });
     
     // Update UI
     this.updateUI();
@@ -430,15 +470,25 @@ export class GameScene extends Phaser.Scene {
       this.player.setVelocityY(-300); // Bounce off enemy
       this.score += 200;
       this.audioManager.playSFX('note', 0.7);
+      
+      // Camera shake for enemy defeat
+      this.cameras.main.shake(100, 0.02);
+      
       this.updateUI();
     } else {
       this.player.takeDamage();
+      
+      // Camera shake for player damage
+      this.cameras.main.shake(200, 0.03);
     }
   }
 
   private playerHitProjectile(projectile: Phaser.Physics.Arcade.Sprite) {
     projectile.destroy();
     this.player.takeDamage();
+    
+    // Camera shake for projectile hit
+    this.cameras.main.shake(150, 0.025);
   }
 
   private completeLevel() {
