@@ -1,0 +1,91 @@
+{
+  "id": "level6",
+  "name": "Cosmic Finale",
+  "description": "The ultimate test in the depths of space",
+  "music": {
+    "bpm": 180,
+    "key": "F#",
+    "style": "cosmic_epic"
+  },
+  "camera": {
+    "bounds": { "width": 4000, "height": 1400 },
+    "zoom": 0.9,
+    "followOffset": { "x": 0, "y": -120 }
+  },
+  "player": {
+    "spawn": { "x": 100, "y": 1200 }
+  },
+  "platforms": [
+    { "x": 0, "y": 1350, "width": 4000, "height": 50, "type": "ground", "color": "NEON_WHITE" },
+    { "x": 150, "y": 1250, "width": 120, "height": 20, "type": "cosmic", "color": "ELECTRIC_BLUE" },
+    { "x": 350, "y": 1150, "width": 100, "height": 20, "type": "moving", "color": "PLASMA_PURPLE", "moveRange": 150 },
+    { "x": 550, "y": 1050, "width": 80, "height": 20, "type": "disappearing", "color": "LASER_GREEN" },
+    { "x": 750, "y": 950, "width": 120, "height": 20, "type": "cosmic", "color": "NEON_CYAN" },
+    { "x": 950, "y": 850, "width": 100, "height": 20, "type": "bouncy", "color": "NEON_YELLOW" },
+    { "x": 1150, "y": 750, "width": 150, "height": 20, "type": "moving", "color": "NEON_RED", "moveRange": 200 },
+    { "x": 1400, "y": 650, "width": 80, "height": 20, "type": "disappearing", "color": "NEON_ORANGE" },
+    { "x": 1600, "y": 550, "width": 120, "height": 20, "type": "cosmic", "color": "NEON_PINK" },
+    { "x": 1800, "y": 450, "width": 100, "height": 20, "type": "bouncy", "color": "NEON_PURPLE" },
+    { "x": 2000, "y": 650, "width": 200, "height": 20, "type": "moving", "color": "ELECTRIC_BLUE", "moveRange": 250 },
+    { "x": 2350, "y": 550, "width": 80, "height": 20, "type": "disappearing", "color": "PLASMA_PURPLE" },
+    { "x": 2550, "y": 450, "width": 120, "height": 20, "type": "cosmic", "color": "LASER_GREEN" },
+    { "x": 2750, "y": 350, "width": 100, "height": 20, "type": "bouncy", "color": "NEON_CYAN" },
+    { "x": 2950, "y": 250, "width": 150, "height": 20, "type": "moving", "color": "NEON_YELLOW", "moveRange": 180 },
+    { "x": 3200, "y": 450, "width": 120, "height": 20, "type": "cosmic", "color": "NEON_RED" },
+    { "x": 3450, "y": 550, "width": 200, "height": 20, "type": "cosmic", "color": "NEON_WHITE" },
+    { "x": 3750, "y": 800, "width": 250, "height": 30, "type": "final_platform", "color": "NEON_WHITE" }
+  ],
+  "notes": [
+    { "x": 210, "y": 1200, "type": "quarter", "color": "ELECTRIC_BLUE", "pitch": "F#4" },
+    { "x": 425, "y": 1050, "type": "eighth", "color": "PLASMA_PURPLE", "pitch": "A#4" },
+    { "x": 630, "y": 950, "type": "sixteenth", "color": "LASER_GREEN", "pitch": "C#5" },
+    { "x": 810, "y": 900, "type": "quarter", "color": "NEON_CYAN", "pitch": "F#5" },
+    { "x": 1010, "y": 750, "type": "eighth", "color": "NEON_YELLOW", "pitch": "A#5" },
+    { "x": 1225, "y": 650, "type": "sixteenth", "color": "NEON_RED", "pitch": "C#6" },
+    { "x": 1480, "y": 550, "type": "quarter", "color": "NEON_ORANGE", "pitch": "F#6" },
+    { "x": 1660, "y": 500, "type": "eighth", "color": "NEON_PINK", "pitch": "A#6" },
+    { "x": 1860, "y": 350, "type": "sixteenth", "color": "NEON_PURPLE", "pitch": "C#7" },
+    { "x": 2100, "y": 550, "type": "quarter", "color": "ELECTRIC_BLUE", "pitch": "F#7" },
+    { "x": 2430, "y": 450, "type": "eighth", "color": "PLASMA_PURPLE", "pitch": "A#7" },
+    { "x": 2610, "y": 400, "type": "whole", "color": "LASER_GREEN", "pitch": "C#8" },
+    { "x": 2810, "y": 250, "type": "quarter", "color": "NEON_CYAN", "pitch": "F#8" },
+    { "x": 3025, "y": 150, "type": "eighth", "color": "NEON_YELLOW", "pitch": "A#8" },
+    { "x": 3260, "y": 400, "type": "whole", "color": "NEON_RED", "pitch": "C#9" },
+    { "x": 3550, "y": 500, "type": "quarter", "color": "NEON_WHITE", "pitch": "F#9" },
+    { "x": 3875, "y": 750, "type": "whole", "color": "NEON_WHITE", "pitch": "A#9" }
+  ],
+  "enemies": [
+    { "x": 300, "y": 1320, "type": "cosmic_guardian", "color": "ELECTRIC_BLUE", "phase_speed": 150 },
+    { "x": 700, "y": 1320, "type": "star_hunter", "color": "PLASMA_PURPLE", "tracking_range": 300 },
+    { "x": 1100, "y": 1320, "type": "void_stalker", "color": "LASER_GREEN", "teleport_range": 200 },
+    { "x": 1500, "y": 1320, "type": "cosmic_guardian", "color": "NEON_CYAN", "phase_speed": 180 },
+    { "x": 1900, "y": 1320, "type": "star_hunter", "color": "NEON_YELLOW", "tracking_range": 350 },
+    { "x": 2300, "y": 1320, "type": "void_stalker", "color": "NEON_RED", "teleport_range": 250 },
+    { "x": 2700, "y": 1320, "type": "cosmic_guardian", "color": "NEON_ORANGE", "phase_speed": 200 },
+    { "x": 3100, "y": 1320, "type": "star_hunter", "color": "NEON_PINK", "tracking_range": 400 },
+    { "x": 3500, "y": 1320, "type": "final_boss", "color": "NEON_WHITE", "health": 5 }
+  ],
+  "hazards": [
+    { "x": 450, "y": 1340, "type": "cosmic_void", "color": "ELECTRIC_BLUE" },
+    { "x": 850, "y": 1340, "type": "stellar_flames", "color": "PLASMA_PURPLE" },
+    { "x": 1250, "y": 1340, "type": "gravity_well", "color": "LASER_GREEN" },
+    { "x": 1650, "y": 1340, "type": "cosmic_void", "color": "NEON_CYAN" },
+    { "x": 2050, "y": 1340, "type": "stellar_flames", "color": "NEON_YELLOW" },
+    { "x": 2450, "y": 1340, "type": "gravity_well", "color": "NEON_RED" },
+    { "x": 2850, "y": 1340, "type": "cosmic_void", "color": "NEON_ORANGE" },
+    { "x": 3250, "y": 1340, "type": "stellar_flames", "color": "NEON_PINK" },
+    { "x": 3650, "y": 1340, "type": "final_hazard", "color": "NEON_WHITE" }
+  ],
+  "background": {
+    "style": "cosmic_space",
+    "colors": ["NEON_WHITE", "ELECTRIC_BLUE", "PLASMA_PURPLE", "LASER_GREEN"],
+    "particles": 60,
+    "effects": ["starfield", "nebula_clouds", "cosmic_winds", "galaxy_spiral"]
+  },
+  "goal": {
+    "x": 3875, "y": 1150,
+    "type": "cosmic_nexus",
+    "color": "NEON_WHITE",
+    "nextLevel": "victory"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "id": "level4",
+  "name": "Cyber Storm",
+  "description": "Navigate through electric storms and digital chaos",
+  "music": {
+    "bpm": 160,
+    "key": "D",
+    "style": "cyberpunk_storm"
+  },
+  "camera": {
+    "bounds": { "width": 2800, "height": 1200 },
+    "zoom": 1.0,
+    "followOffset": { "x": 0, "y": -100 }
+  },
+  "player": {
+    "spawn": { "x": 100, "y": 1000 }
+  },
+  "platforms": [
+    { "x": 0, "y": 1150, "width": 2800, "height": 50, "type": "ground", "color": "DANGER_ORANGE" },
+    { "x": 150, "y": 1050, "width": 100, "height": 15, "type": "electric", "color": "ELECTRIC_BLUE" },
+    { "x": 300, "y": 950, "width": 80, "height": 15, "type": "moving", "color": "NEON_RED", "moveRange": 120 },
+    { "x": 500, "y": 850, "width": 100, "height": 15, "type": "electric", "color": "PLASMA_PURPLE" },
+    { "x": 700, "y": 750, "width": 120, "height": 15, "type": "disappearing", "color": "NEON_YELLOW" },
+    { "x": 900, "y": 650, "width": 100, "height": 15, "type": "bouncy", "color": "LASER_GREEN" },
+    { "x": 1100, "y": 800, "width": 150, "height": 15, "type": "moving", "color": "NEON_CYAN", "moveRange": 200 },
+    { "x": 1350, "y": 700, "width": 80, "height": 15, "type": "electric", "color": "NEON_PINK" },
+    { "x": 1550, "y": 600, "width": 100, "height": 15, "type": "disappearing", "color": "NEON_PURPLE" },
+    { "x": 1750, "y": 500, "width": 120, "height": 15, "type": "bouncy", "color": "ELECTRIC_BLUE" },
+    { "x": 1950, "y": 650, "width": 100, "height": 15, "type": "moving", "color": "DANGER_ORANGE", "moveRange": 150 },
+    { "x": 2200, "y": 550, "width": 80, "height": 15, "type": "electric", "color": "NEON_RED" },
+    { "x": 2400, "y": 450, "width": 100, "height": 15, "type": "platform", "color": "NEON_WHITE" },
+    { "x": 2600, "y": 700, "width": 200, "height": 15, "type": "platform", "color": "ELECTRIC_BLUE" }
+  ],
+  "notes": [
+    { "x": 200, "y": 1000, "type": "sixteenth", "color": "ELECTRIC_BLUE", "pitch": "D4" },
+    { "x": 380, "y": 850, "type": "eighth", "color": "NEON_RED", "pitch": "F4" },
+    { "x": 550, "y": 800, "type": "sixteenth", "color": "PLASMA_PURPLE", "pitch": "A4" },
+    { "x": 760, "y": 650, "type": "quarter", "color": "NEON_YELLOW", "pitch": "D5" },
+    { "x": 950, "y": 550, "type": "eighth", "color": "LASER_GREEN", "pitch": "F5" },
+    { "x": 1175, "y": 700, "type": "sixteenth", "color": "NEON_CYAN", "pitch": "A5" },
+    { "x": 1400, "y": 650, "type": "eighth", "color": "NEON_PINK", "pitch": "D6" },
+    { "x": 1600, "y": 500, "type": "quarter", "color": "NEON_PURPLE", "pitch": "F6" },
+    { "x": 1800, "y": 400, "type": "eighth", "color": "ELECTRIC_BLUE", "pitch": "A6" },
+    { "x": 2025, "y": 550, "type": "sixteenth", "color": "DANGER_ORANGE", "pitch": "D7" },
+    { "x": 2250, "y": 500, "type": "quarter", "color": "NEON_RED", "pitch": "F7" },
+    { "x": 2450, "y": 400, "type": "whole", "color": "NEON_WHITE", "pitch": "A7" },
+    { "x": 2700, "y": 650, "type": "eighth", "color": "ELECTRIC_BLUE", "pitch": "D8" }
+  ],
+  "enemies": [
+    { "x": 400, "y": 1120, "type": "cyber_spider", "color": "DANGER_RED", "speed": 120 },
+    { "x": 800, "y": 1120, "type": "data_ghost", "color": "PLASMA_PURPLE", "phaseInterval": 2000 },
+    { "x": 1200, "y": 1120, "type": "electric_drone", "color": "ELECTRIC_BLUE", "shockRange": 150 },
+    { "x": 1600, "y": 1120, "type": "cyber_spider", "color": "NEON_RED", "speed": 140 },
+    { "x": 2000, "y": 1120, "type": "data_ghost", "color": "NEON_CYAN", "phaseInterval": 1500 },
+    { "x": 2400, "y": 1120, "type": "electric_drone", "color": "DANGER_ORANGE", "shockRange": 200 }
+  ],
+  "hazards": [
+    { "x": 350, "y": 1140, "type": "electric_field", "color": "ELECTRIC_BLUE" },
+    { "x": 650, "y": 1140, "type": "data_corruption", "color": "NEON_RED" },
+    { "x": 1050, "y": 1140, "type": "electric_field", "color": "PLASMA_PURPLE" },
+    { "x": 1450, "y": 1140, "type": "cyber_virus", "color": "DANGER_ORANGE" },
+    { "x": 1850, "y": 1140, "type": "electric_field", "color": "NEON_CYAN" },
+    { "x": 2250, "y": 1140, "type": "data_corruption", "color": "NEON_PINK" }
+  ],
+  "background": {
+    "style": "cyberpunk_storm",
+    "colors": ["ELECTRIC_BLUE", "DANGER_ORANGE", "PLASMA_PURPLE", "NEON_CYAN"],
+    "particles": 50,
+    "effects": ["lightning_bolts", "data_streams", "electric_arcs", "digital_rain"]
+  },
+  "goal": {
+    "x": 2700, "y": 1000,
+    "type": "data_portal",
+    "color": "NEON_WHITE",
+    "nextLevel": "level5"
+  }
+}

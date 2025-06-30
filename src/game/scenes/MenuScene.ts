@@ -103,8 +103,6 @@ export class MenuScene extends Phaser.Scene {
   private createModernMenu() {
     const menuOptions = [
       { text: 'PLAY CAMPAIGN', icon: '▶', color: COLORS.PLAYER },
-      { text: 'LEVEL EDITOR', icon: '⚒', color: COLORS.NOTE },
-      { text: 'COMMUNITY LEVELS', icon: '⬆', color: COLORS.MOVING_PLATFORM },
       { text: 'SETTINGS', icon: '⚙', color: COLORS.PARTICLE },
       { text: 'CREDITS', icon: 'ℹ', color: COLORS.TRAIL }
     ];
@@ -172,37 +170,6 @@ export class MenuScene extends Phaser.Scene {
     });
   }
 
-  private createParticleBackground() {
-    // Create subtle overlay particles (demo scene provides the main background)
-    for (let i = 0; i < 20; i++) {
-      const particle = this.add.graphics();
-      const size = Phaser.Math.Between(1, 2);
-      const color = COLOR_PALETTES.NEON[i % COLOR_PALETTES.NEON.length];
-      
-      particle.fillStyle(color, 0.3);
-      particle.fillCircle(0, 0, size);
-      
-      const x = Phaser.Math.Between(0, this.cameras.main.width);
-      const y = Phaser.Math.Between(0, this.cameras.main.height);
-      particle.setPosition(x, y);
-      particle.setDepth(-1);
-      
-      this.backgroundParticles.push(particle);
-      
-      // Floating animation
-      this.tweens.add({
-        targets: particle,
-        x: x + Phaser.Math.Between(-100, 100),
-        y: y + Phaser.Math.Between(-75, 75),
-        alpha: { from: 0.1, to: 0.4 },
-        duration: Phaser.Math.Between(4000, 8000),
-        yoyo: true,
-        repeat: -1,
-        ease: 'Sine.easeInOut'
-      });
-    }
-  }
-
   private createFloatingElements() {
     const { width, height } = this.cameras.main;
 
@@ -210,26 +177,22 @@ export class MenuScene extends Phaser.Scene {
     const audioHint = this.add.text(width - 20, height - 20, 'CLICK TO UNLOCK AUDIO', {
       fontSize: '12px',
       fontFamily: 'monospace',
-      color: COLORS.NOTE.toString(16),
-      alpha: 0.7
-    });
-    audioHint.setOrigin(1, 1);
+      color: COLORS.NOTE.toString(16)
+    }).setOrigin(1, 1);
 
     // Controls hint
     const controlsHint = this.add.text(20, height - 60, 'WASD/ARROWS: MOVE  SPACE: JUMP  GAMEPAD SUPPORTED', {
       fontSize: '10px',
       fontFamily: 'monospace',
       color: '#888888'
-    });
-    controlsHint.setOrigin(0, 1);
+    }).setOrigin(0, 1);
 
     // Version info
     const version = this.add.text(20, height - 20, 'v1.0.0', {
       fontSize: '10px',
       fontFamily: 'monospace',
       color: '#666666'
-    });
-    version.setOrigin(0, 1);
+    }).setOrigin(0, 1);
 
     // Hide audio hint after interaction
     const hideHint = () => {
@@ -317,17 +280,17 @@ export class MenuScene extends Phaser.Scene {
 
     // D-pad or left stick navigation
     if (this.gamepad.up || this.gamepad.axes[1].getValue() < -0.5) {
-      if (!this.gamepad.up?.pressed) {
+      if (!this.gamepad.up || !this.gamepad.up.pressed) {
         this.navigateMenu(-1);
       }
     } else if (this.gamepad.down || this.gamepad.axes[1].getValue() > 0.5) {
-      if (!this.gamepad.down?.pressed) {
+      if (!this.gamepad.down || !this.gamepad.down.pressed) {
         this.navigateMenu(1);
       }
     }
 
     // A button to select
-    if (this.gamepad.A?.isDown && !this.gamepad.A.pressed) {
+    if (this.gamepad.A && this.gamepad.A.isDown && !this.gamepad.A.pressed) {
       this.selectMenuItem(this.selectedIndex);
     }
   }
@@ -338,12 +301,24 @@ export class MenuScene extends Phaser.Scene {
   }
 
   private updateMenuSelection() {
+    if (!this.menuItems || this.menuItems.length === 0) {
+      return;
+    }
+    
     this.menuItems.forEach((item, index) => {
+      if (!item) return;
+      
       const bg = item.getData('bg') as Phaser.GameObjects.Graphics;
       const text = item.getData('text') as Phaser.GameObjects.Text;
       const icon = item.getData('icon') as Phaser.GameObjects.Text;
       const selector = item.getData('selector') as Phaser.GameObjects.Graphics;
       const color = item.getData('color') as number;
+
+      // Safety checks
+      if (!bg || !text || !icon || !selector || !color) {
+        console.warn('Menu item missing data:', { bg: !!bg, text: !!text, icon: !!icon, selector: !!selector, color: !!color });
+        return;
+      }
 
       if (index === this.selectedIndex) {
         // Selected state
@@ -408,100 +383,14 @@ export class MenuScene extends Phaser.Scene {
       case 0: // Play Campaign
         // Stop demo scene and start game
         this.scene.stop('DemoScene');
-        this.scene.start('GameScene');
+        this.scene.start('NewGameScene');
         break;
-      case 1: // Level Editor
-        console.log('Level Editor not implemented yet');
+      case 1: // Settings
+        this.scene.launch('SettingsScene');
         break;
-      case 2: // Community Levels
-        console.log('Community Levels not implemented yet');
-        break;
-      case 3: // Settings
-        console.log('Settings not implemented yet');
-        break;
-      case 4: // Credits
-        console.log('Credits not implemented yet');
+      case 2: // Credits
+        this.scene.launch('CreditsScene');
         break;
     }
   }
-
-  private setupInput() {
-    // Keyboard input
-    const cursors = this.input.keyboard?.createCursorKeys();
-    const wasd = this.input.keyboard?.addKeys('W,S,A,D,ENTER,SPACE') as any;
-
-    cursors?.up.on('down', () => this.navigateMenu(-1));
-    cursors?.down.on('down', () => this.navigateMenu(1));
-    cursors?.space.on('down', () => this.selectMenuItem(this.selectedIndex));
-    wasd?.W.on('down', () => this.navigateMenu(-1));
-    wasd?.S.on('down', () => this.navigateMenu(1));
-    wasd?.ENTER.on('down', () => this.selectMenuItem(this.selectedIndex));
-
-    // Gamepad detection
-    this.input.gamepad?.once('connected', (pad: Phaser.Input.Gamepad.Gamepad) => {
-      this.gamepad = pad;
-      console.log('Gamepad connected:', pad.id);
-    });
-  }
-
-  private handleGamepadInput() {
-    if (!this.gamepad) return;
-
-    // D-pad or left stick navigation
-    if (this.gamepad.up || this.gamepad.axes[1].getValue() < -0.5) {
-      if (!this.gamepad.up?.pressed) {
-        this.navigateMenu(-1);
-      }
-    } else if (this.gamepad.down || this.gamepad.axes[1].getValue() > 0.5) {
-      if (!this.gamepad.down?.pressed) {
-        this.navigateMenu(1);
-      }
-    }
-
-    // A button to select
-    if (this.gamepad.A?.isDown && !this.gamepad.A.pressed) {
-      this.selectMenuItem(this.selectedIndex);
-    }
-  }
-
-  private navigateMenu(direction: number) {
-    this.selectedIndex = Phaser.Math.Wrap(this.selectedIndex + direction, 0, this.menuItems.length);
-    this.updateMenuSelection();
-  }
-
-
-  private selectMenuItem(index: number) {
-    // Selection feedback
-    const selectedItem = this.menuItems[index];
-    
-    this.tweens.add({
-      targets: selectedItem,
-      scaleX: 1.2,
-      scaleY: 1.2,
-      duration: 100,
-      yoyo: true,
-      ease: 'Power2.easeOut'
-    });
-
-    switch (index) {
-      case 0: // Play Campaign
-        // Stop demo scene and start game
-        this.scene.stop('DemoScene');
-        this.scene.start('GameScene');
-        break;
-      case 1: // Level Editor
-        console.log('Level Editor not implemented yet');
-        break;
-      case 2: // Community Levels
-        console.log('Community Levels not implemented yet');
-        break;
-      case 3: // Settings
-        console.log('Settings not implemented yet');
-        break;
-      case 4: // Credits
-        console.log('Credits not implemented yet');
-        break;
-    }
-  }
-
 }

@@ -532,19 +532,22 @@ export class AudioManager {
 
   // Volume controls
   setMasterVolume(volume: number): void {
-    this.masterVolume = Phaser.Math.Clamp(volume, 0, 1);
+    this.masterVolume = Math.max(0, Math.min(1, volume));
     Howler.volume(this.masterVolume);
+    console.log('Master volume set to:', this.masterVolume);
   }
 
   setMusicVolume(volume: number): void {
-    this.musicVolume = Phaser.Math.Clamp(volume, 0, 1);
+    this.musicVolume = Math.max(0, Math.min(1, volume));
     this.musicLayers.forEach(layer => {
       layer.sound.volume(layer.volume * this.musicVolume);
     });
+    console.log('Music volume set to:', this.musicVolume);
   }
 
   setSFXVolume(volume: number): void {
-    this.sfxVolume = Phaser.Math.Clamp(volume, 0, 1);
+    this.sfxVolume = Math.max(0, Math.min(1, volume));
+    console.log('SFX volume set to:', this.sfxVolume);
   }
 
   // Utility methods
@@ -563,6 +566,12 @@ export class AudioManager {
 
   unmuteAll(): void {
     Howler.mute(false);
+  }
+
+  // Stop all audio
+  stopAll(): void {
+    this.stopAllMusic();
+    this.sfxPool.forEach(sound => sound.stop());
   }
 
   // Cleanup

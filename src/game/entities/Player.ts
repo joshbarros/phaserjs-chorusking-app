@@ -19,6 +19,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   private coyoteTime = 0;
   private trail: Phaser.GameObjects.Graphics[] = [];
   private trailLength = 10;
+  private damageCooldown = 0;
+  private damageCooldownTime = 1000; // 1 second cooldown
 
   // Player abilities
   private abilities = {
@@ -84,6 +86,11 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.coyoteTime = 100; // 100ms coyote time
     } else if (this.coyoteTime > 0) {
       this.coyoteTime -= delta;
+    }
+    
+    // Damage cooldown timer
+    if (this.damageCooldown > 0) {
+      this.damageCooldown -= delta;
     }
   }
 
@@ -310,6 +317,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   takeDamage() {
+    // Check if still in damage cooldown
+    if (this.damageCooldown > 0) {
+      return; // Prevent multiple damage instances
+    }
+    
+    // Set damage cooldown
+    this.damageCooldown = this.damageCooldownTime;
+    
     // Play death sound
     const audioManager = (this.scene as any).audioManager;
     if (audioManager) {

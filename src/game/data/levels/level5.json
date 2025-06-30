@@ -1,0 +1,74 @@
+{
+  "id": "level5",
+  "name": "Vaporwave Sunset",
+  "description": "Drift through retro-futuristic landscapes",
+  "music": {
+    "bpm": 95,
+    "key": "Am",
+    "style": "vaporwave_chill"
+  },
+  "camera": {
+    "bounds": { "width": 3500, "height": 1100 },
+    "zoom": 1.15,
+    "followOffset": { "x": 0, "y": -70 }
+  },
+  "player": {
+    "spawn": { "x": 100, "y": 900 }
+  },
+  "platforms": [
+    { "x": 0, "y": 1050, "width": 3500, "height": 50, "type": "ground", "color": "NEON_PURPLE" },
+    { "x": 200, "y": 950, "width": 200, "height": 25, "type": "retro", "color": "NEON_PINK" },
+    { "x": 500, "y": 850, "width": 150, "height": 25, "type": "retro", "color": "NEON_CYAN" },
+    { "x": 750, "y": 750, "width": 180, "height": 25, "type": "floating", "color": "PLASMA_PURPLE" },
+    { "x": 1000, "y": 650, "width": 120, "height": 25, "type": "bouncy", "color": "LASER_GREEN" },
+    { "x": 1250, "y": 750, "width": 200, "height": 25, "type": "moving", "color": "NEON_ORANGE", "moveRange": 150 },
+    { "x": 1550, "y": 650, "width": 150, "height": 25, "type": "retro", "color": "ELECTRIC_BLUE" },
+    { "x": 1800, "y": 550, "width": 180, "height": 25, "type": "floating", "color": "NEON_YELLOW" },
+    { "x": 2100, "y": 650, "width": 120, "height": 25, "type": "bouncy", "color": "NEON_RED" },
+    { "x": 2350, "y": 550, "width": 200, "height": 25, "type": "moving", "color": "NEON_WHITE", "moveRange": 180 },
+    { "x": 2650, "y": 450, "width": 150, "height": 25, "type": "retro", "color": "NEON_CYAN" },
+    { "x": 2900, "y": 550, "width": 180, "height": 25, "type": "floating", "color": "PLASMA_PURPLE" },
+    { "x": 3200, "y": 650, "width": 200, "height": 25, "type": "retro", "color": "NEON_PINK" }
+  ],
+  "notes": [
+    { "x": 300, "y": 900, "type": "whole", "color": "NEON_PINK", "pitch": "A3" },
+    { "x": 575, "y": 800, "type": "half", "color": "NEON_CYAN", "pitch": "C4" },
+    { "x": 840, "y": 700, "type": "quarter", "color": "PLASMA_PURPLE", "pitch": "E4" },
+    { "x": 1070, "y": 550, "type": "half", "color": "LASER_GREEN", "pitch": "G4" },
+    { "x": 1350, "y": 650, "type": "quarter", "color": "NEON_ORANGE", "pitch": "A4" },
+    { "x": 1625, "y": 600, "type": "whole", "color": "ELECTRIC_BLUE", "pitch": "C5" },
+    { "x": 1890, "y": 500, "type": "half", "color": "NEON_YELLOW", "pitch": "E5" },
+    { "x": 2170, "y": 550, "type": "quarter", "color": "NEON_RED", "pitch": "G5" },
+    { "x": 2450, "y": 450, "type": "half", "color": "NEON_WHITE", "pitch": "A5" },
+    { "x": 2725, "y": 400, "type": "whole", "color": "NEON_CYAN", "pitch": "C6" },
+    { "x": 2990, "y": 500, "type": "quarter", "color": "PLASMA_PURPLE", "pitch": "E6" },
+    { "x": 3300, "y": 600, "type": "half", "color": "NEON_PINK", "pitch": "A6" }
+  ],
+  "enemies": [
+    { "x": 450, "y": 1020, "type": "retro_walker", "color": "NEON_PINK", "patrolRange": 180 },
+    { "x": 900, "y": 1020, "type": "vibe_checker", "color": "NEON_CYAN", "floatHeight": 80 },
+    { "x": 1400, "y": 1020, "type": "retro_walker", "color": "PLASMA_PURPLE", "patrolRange": 220 },
+    { "x": 1900, "y": 1020, "type": "vibe_checker", "color": "NEON_YELLOW", "floatHeight": 100 },
+    { "x": 2500, "y": 1020, "type": "retro_walker", "color": "NEON_WHITE", "patrolRange": 200 },
+    { "x": 3000, "y": 1020, "type": "vibe_checker", "color": "ELECTRIC_BLUE", "floatHeight": 90 }
+  ],
+  "hazards": [
+    { "x": 600, "y": 1040, "type": "retro_spikes", "color": "NEON_PINK" },
+    { "x": 1100, "y": 1040, "type": "vibe_disruptor", "color": "PLASMA_PURPLE" },
+    { "x": 1700, "y": 1040, "type": "retro_spikes", "color": "NEON_CYAN" },
+    { "x": 2200, "y": 1040, "type": "vibe_disruptor", "color": "NEON_YELLOW" },
+    { "x": 2800, "y": 1040, "type": "retro_spikes", "color": "NEON_WHITE" }
+  ],
+  "background": {
+    "style": "vaporwave_sunset",
+    "colors": ["NEON_PINK", "NEON_PURPLE", "NEON_CYAN", "PLASMA_PURPLE"],
+    "particles": 25,
+    "effects": ["sunset_gradient", "palm_trees", "retro_grid", "floating_triangles"]
+  },
+  "goal": {
+    "x": 3400, "y": 950,
+    "type": "sunset_portal",
+    "color": "NEON_PINK",
+    "nextLevel": "level6"
+  }
+}

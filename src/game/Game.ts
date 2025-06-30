@@ -1,8 +1,10 @@
 import Phaser from 'phaser';
 import { BootScene } from './scenes/BootScene';
 import { MenuScene } from './scenes/MenuScene';
-import { GameScene } from './scenes/GameScene';
+import { NewGameScene } from './scenes/NewGameScene';
 import { DemoScene } from './scenes/DemoScene';
+import { SettingsScene } from './scenes/SettingsScene';
+import { CreditsScene } from './scenes/CreditsScene';
 import { GAME_CONFIG } from './utils/Constants';
 
 export class ChorusKingGame {
@@ -18,7 +20,7 @@ export class ChorusKingGame {
       physics: {
         default: 'arcade',
         arcade: {
-          gravity: { y: GAME_CONFIG.PHYSICS.GRAVITY },
+          gravity: { y: GAME_CONFIG.PHYSICS.GRAVITY, x: 0 },
           debug: GAME_CONFIG.PHYSICS.DEBUG
         }
       },
@@ -31,7 +33,7 @@ export class ChorusKingGame {
         width: '100%',
         height: '100%'
       },
-      scene: [BootScene, DemoScene, MenuScene, GameScene],
+      scene: [BootScene, DemoScene, MenuScene, NewGameScene, SettingsScene, CreditsScene],
       render: {
         antialias: true,
         pixelArt: false
@@ -57,11 +59,11 @@ export class ChorusKingGame {
   }
 
   pause() {
-    this.game.scene.pause();
+    this.game.scene.pause('GameScene');
   }
 
   resume() {
-    this.game.scene.resume();
+    this.game.scene.resume('GameScene');
   }
 
   getCurrentScene(): Phaser.Scene | null {

@@ -1,0 +1,73 @@
+{
+  "id": "level2",
+  "name": "Neon Cascade",
+  "description": "Flowing melodies and cascading platforms",
+  "music": {
+    "bpm": 140,
+    "key": "G",
+    "style": "neon_cascade"
+  },
+  "camera": {
+    "bounds": { "width": 2500, "height": 900 },
+    "zoom": 1.2,
+    "followOffset": { "x": 0, "y": -60 }
+  },
+  "player": {
+    "spawn": { "x": 100, "y": 700 }
+  },
+  "platforms": [
+    { "x": 0, "y": 850, "width": 2500, "height": 50, "type": "ground", "color": "ELECTRIC_BLUE" },
+    { "x": 150, "y": 750, "width": 100, "height": 15, "type": "platform", "color": "LASER_GREEN" },
+    { "x": 300, "y": 650, "width": 100, "height": 15, "type": "platform", "color": "NEON_PINK" },
+    { "x": 450, "y": 550, "width": 100, "height": 15, "type": "platform", "color": "PLASMA_PURPLE" },
+    { "x": 600, "y": 450, "width": 100, "height": 15, "type": "bouncy", "color": "NEON_YELLOW" },
+    { "x": 800, "y": 500, "width": 120, "height": 15, "type": "moving", "color": "NEON_CYAN", "moveRange": 200 },
+    { "x": 1000, "y": 400, "width": 100, "height": 15, "type": "platform", "color": "NEON_ORANGE" },
+    { "x": 1200, "y": 350, "width": 180, "height": 15, "type": "moving", "color": "NEON_RED", "moveRange": 120 },
+    { "x": 1450, "y": 300, "width": 100, "height": 15, "type": "bouncy", "color": "NEON_PURPLE" },
+    { "x": 1650, "y": 250, "width": 100, "height": 15, "type": "platform", "color": "LASER_GREEN" },
+    { "x": 1850, "y": 400, "width": 150, "height": 15, "type": "platform", "color": "ELECTRIC_BLUE" },
+    { "x": 2100, "y": 350, "width": 200, "height": 15, "type": "moving", "color": "PLASMA_PURPLE", "moveRange": 180 },
+    { "x": 2350, "y": 450, "width": 150, "height": 15, "type": "platform", "color": "NEON_WHITE" }
+  ],
+  "notes": [
+    { "x": 200, "y": 700, "type": "eighth", "color": "LASER_GREEN", "pitch": "G4" },
+    { "x": 350, "y": 600, "type": "quarter", "color": "NEON_PINK", "pitch": "A4" },
+    { "x": 500, "y": 500, "type": "eighth", "color": "PLASMA_PURPLE", "pitch": "B4" },
+    { "x": 650, "y": 350, "type": "quarter", "color": "NEON_YELLOW", "pitch": "C5" },
+    { "x": 850, "y": 450, "type": "eighth", "color": "NEON_CYAN", "pitch": "D5" },
+    { "x": 1050, "y": 350, "type": "quarter", "color": "NEON_ORANGE", "pitch": "E5" },
+    { "x": 1300, "y": 250, "type": "eighth", "color": "NEON_RED", "pitch": "F5" },
+    { "x": 1500, "y": 200, "type": "quarter", "color": "NEON_PURPLE", "pitch": "G5" },
+    { "x": 1700, "y": 200, "type": "eighth", "color": "LASER_GREEN", "pitch": "A5" },
+    { "x": 1900, "y": 350, "type": "quarter", "color": "ELECTRIC_BLUE", "pitch": "B5" },
+    { "x": 2200, "y": 250, "type": "whole", "color": "PLASMA_PURPLE", "pitch": "C6" },
+    { "x": 2400, "y": 400, "type": "quarter", "color": "NEON_WHITE", "pitch": "D6" }
+  ],
+  "enemies": [
+    { "x": 500, "y": 820, "type": "chaser", "color": "DANGER_RED", "speed": 80 },
+    { "x": 900, "y": 820, "type": "shooter", "color": "DANGER_ORANGE", "shootInterval": 2500 },
+    { "x": 1300, "y": 820, "type": "walker", "color": "DANGER_RED", "patrolRange": 200 },
+    { "x": 1700, "y": 820, "type": "chaser", "color": "DANGER_ORANGE", "speed": 100 },
+    { "x": 2000, "y": 820, "type": "shooter", "color": "DANGER_RED", "shootInterval": 2000 }
+  ],
+  "hazards": [
+    { "x": 420, "y": 840, "type": "spikes", "color": "DANGER_RED" },
+    { "x": 750, "y": 840, "type": "laser_vertical", "color": "DANGER_ORANGE" },
+    { "x": 1150, "y": 840, "type": "spikes", "color": "DANGER_RED" },
+    { "x": 1550, "y": 840, "type": "laser_vertical", "color": "DANGER_ORANGE" },
+    { "x": 1950, "y": 840, "type": "spikes", "color": "DANGER_RED" }
+  ],
+  "background": {
+    "style": "neon_cascade",
+    "colors": ["ELECTRIC_BLUE", "LASER_GREEN", "PLASMA_PURPLE", "NEON_CYAN"],
+    "particles": 40,
+    "effects": ["flowing_lines", "cascade_effect", "color_pulse"]
+  },
+  "goal": {
+    "x": 2400, "y": 750,
+    "type": "portal",
+    "color": "NEON_WHITE",
+    "nextLevel": "level3"
+  }
+}

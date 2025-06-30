@@ -1,0 +1,73 @@
+{
+  "id": "level3",
+  "name": "Crystal Harmonics",
+  "description": "Shimmering crystals create resonant melodies",
+  "music": {
+    "bpm": 110,
+    "key": "E",
+    "style": "crystal_ambient"
+  },
+  "camera": {
+    "bounds": { "width": 3000, "height": 1000 },
+    "zoom": 1.1,
+    "followOffset": { "x": 0, "y": -80 }
+  },
+  "player": {
+    "spawn": { "x": 100, "y": 800 }
+  },
+  "platforms": [
+    { "x": 0, "y": 950, "width": 3000, "height": 50, "type": "ground", "color": "NEON_CYAN" },
+    { "x": 200, "y": 850, "width": 120, "height": 20, "type": "crystal", "color": "NEON_WHITE" },
+    { "x": 400, "y": 750, "width": 120, "height": 20, "type": "crystal", "color": "ELECTRIC_BLUE" },
+    { "x": 600, "y": 650, "width": 120, "height": 20, "type": "crystal", "color": "LASER_GREEN" },
+    { "x": 850, "y": 550, "width": 150, "height": 20, "type": "moving", "color": "PLASMA_PURPLE", "moveRange": 100 },
+    { "x": 1100, "y": 650, "width": 120, "height": 20, "type": "crystal", "color": "NEON_PINK" },
+    { "x": 1300, "y": 500, "width": 120, "height": 20, "type": "bouncy", "color": "NEON_YELLOW" },
+    { "x": 1550, "y": 600, "width": 200, "height": 20, "type": "moving", "color": "NEON_PURPLE", "moveRange": 150 },
+    { "x": 1850, "y": 450, "width": 120, "height": 20, "type": "crystal", "color": "NEON_ORANGE" },
+    { "x": 2100, "y": 400, "width": 120, "height": 20, "type": "crystal", "color": "NEON_RED" },
+    { "x": 2350, "y": 500, "width": 120, "height": 20, "type": "bouncy", "color": "NEON_CYAN" },
+    { "x": 2600, "y": 350, "width": 120, "height": 20, "type": "crystal", "color": "NEON_WHITE" },
+    { "x": 2800, "y": 600, "width": 200, "height": 20, "type": "platform", "color": "ELECTRIC_BLUE" }
+  ],
+  "notes": [
+    { "x": 260, "y": 800, "type": "whole", "color": "NEON_WHITE", "pitch": "E4" },
+    { "x": 460, "y": 700, "type": "half", "color": "ELECTRIC_BLUE", "pitch": "G4" },
+    { "x": 660, "y": 600, "type": "quarter", "color": "LASER_GREEN", "pitch": "B4" },
+    { "x": 925, "y": 450, "type": "eighth", "color": "PLASMA_PURPLE", "pitch": "D5" },
+    { "x": 1160, "y": 600, "type": "quarter", "color": "NEON_PINK", "pitch": "E5" },
+    { "x": 1360, "y": 400, "type": "half", "color": "NEON_YELLOW", "pitch": "G5" },
+    { "x": 1650, "y": 500, "type": "quarter", "color": "NEON_PURPLE", "pitch": "B5" },
+    { "x": 1910, "y": 400, "type": "eighth", "color": "NEON_ORANGE", "pitch": "D6" },
+    { "x": 2160, "y": 350, "type": "quarter", "color": "NEON_RED", "pitch": "E6" },
+    { "x": 2410, "y": 400, "type": "half", "color": "NEON_CYAN", "pitch": "G6" },
+    { "x": 2660, "y": 300, "type": "whole", "color": "NEON_WHITE", "pitch": "B6" },
+    { "x": 2900, "y": 550, "type": "quarter", "color": "ELECTRIC_BLUE", "pitch": "E7" }
+  ],
+  "enemies": [
+    { "x": 350, "y": 920, "type": "crystal_guardian", "color": "NEON_CYAN", "patrolRange": 150 },
+    { "x": 750, "y": 920, "type": "harmonic_drone", "color": "PLASMA_PURPLE", "floatHeight": 100 },
+    { "x": 1250, "y": 920, "type": "crystal_guardian", "color": "NEON_PINK", "patrolRange": 200 },
+    { "x": 1750, "y": 920, "type": "harmonic_drone", "color": "NEON_ORANGE", "floatHeight": 120 },
+    { "x": 2250, "y": 920, "type": "crystal_guardian", "color": "NEON_RED", "patrolRange": 180 }
+  ],
+  "hazards": [
+    { "x": 500, "y": 940, "type": "crystal_spikes", "color": "NEON_CYAN" },
+    { "x": 950, "y": 940, "type": "harmonic_field", "color": "PLASMA_PURPLE" },
+    { "x": 1450, "y": 940, "type": "crystal_spikes", "color": "NEON_PINK" },
+    { "x": 2000, "y": 940, "type": "harmonic_field", "color": "NEON_ORANGE" },
+    { "x": 2500, "y": 940, "type": "crystal_spikes", "color": "NEON_RED" }
+  ],
+  "background": {
+    "style": "crystal_cave",
+    "colors": ["NEON_CYAN", "NEON_WHITE", "ELECTRIC_BLUE", "PLASMA_PURPLE"],
+    "particles": 35,
+    "effects": ["crystal_reflections", "light_rays", "harmonic_waves"]
+  },
+  "goal": {
+    "x": 2900, "y": 850,
+    "type": "crystal_portal",
+    "color": "NEON_WHITE",
+    "nextLevel": "level4"
+  }
+}
